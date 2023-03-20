@@ -17,16 +17,16 @@ hashed_columns:
     is_hashdiff: true
     columns:
       - "vehicle_insurance_id"
-      - "Gender"
-      - "Age"
-      - "Driving_License"
-      - "Region_Code"
-      - "Previously_Insured"
-      - "Vehicle_Age"
-      - "Vehicle_Damage"
-      - "Annual_Premium"
-      - "Policy_Sales_Channel"
-      - "Vintage"
+      - "gender"
+      - "age"
+      - "driving_license"
+      - "region_code"
+      - "previously_insured"
+      - "vehicle_age"
+      - "vehicle_damage"
+      - "annual_premium"
+      - "policy_sales_channel"
+      - "vintage"
 {%- endset -%}
 
 /* fromyml() built-in jinja function  assigns values to variables */
