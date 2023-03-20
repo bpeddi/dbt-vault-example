@@ -1,12 +1,4 @@
 version: 2
-
-sources:
-  - name: dbt_test
-    database: dbt_test
-
-    tables:
-      - name: vehicle_insurance
-
 models:
   - name: vehicle_insurance_stage_vw
     description: "{{ doc('vehicle_insurance_stage_vw') }}"

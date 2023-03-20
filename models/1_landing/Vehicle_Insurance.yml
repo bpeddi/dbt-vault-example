@@ -3,6 +3,7 @@ sources:
   - name: dbt_test
     description: "{{ doc('Vehicle_Insurance') }}"
     schema: dbt_test
+    database: dbt_test
     tables:
       - name: "vehicle_insurance"
         description: "{{ doc('Vehicle_Insurance') }}"
