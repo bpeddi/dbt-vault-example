@@ -7,7 +7,6 @@ models:
           column_name: "incident_id || '-' || vehicle_insurance_number"
     config:
         materialized: view
-        schema: dbt_test
         tags:
          - vehicle_insurance
          - daily
