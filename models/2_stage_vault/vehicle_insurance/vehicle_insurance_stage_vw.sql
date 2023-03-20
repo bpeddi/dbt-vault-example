@@ -6,7 +6,7 @@
 source_model: src_vehicle_insurance_vw
   
 derived_columns:
-  source: "!eirssys"
+  record_source: "!eirssys"
   etl_load_datetime: "current_timestamp"
   effective_from: "current_date"
   end_date: "to_date('9999-12-31','YYYY-MM-DD')"
