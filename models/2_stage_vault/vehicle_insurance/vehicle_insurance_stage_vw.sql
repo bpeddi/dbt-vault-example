@@ -11,9 +11,9 @@ derived_columns:
   EFFECTIVE_FROM: "CURRENT_DATE"
   END_DATE: "TO_DATE('9999-12-31','YYYY-MM-DD')"
 hashed_columns:
-  vehicle_insurance_hk:
+  VEHICLE_INSURANCE_HK:
     - "VEHICLE_INSURANCE_ID"
-  hashdiff:
+  HASHDIFF:
     is_hashdiff: true
     columns:
       - "VEHICLE_INSURANCE_ID"
