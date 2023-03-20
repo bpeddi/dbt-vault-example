@@ -7,7 +7,7 @@ models:
     description: "{{ doc('src_vehicle_insurance_vw') }}"
     config:
         materialized: view
-        schema: stage_vault
+        schema: dbt_test
         tags: 
          - vehicle_insurance
          - daily  
