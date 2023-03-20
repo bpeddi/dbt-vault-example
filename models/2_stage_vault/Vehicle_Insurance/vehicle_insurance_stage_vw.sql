@@ -6,27 +6,27 @@
 source_model: src_vehicle_insurance_vw
   
 derived_columns:
-  source: "!eirssys"
-  etl_load_datetime: "current_timestamp"
-  effective_from: "current_date"
-  end_date: "to_date('9999-12-31','YYYY-MM-DD')"
+  ETL_LOAD_DATETIME: "current_timestamp"
+  EFFECTIVE_FROM: "current_date"
+  END_DATE: "to_date('9999-12-31','YYYY-MM-DD')"
 hashed_columns:
-  vehicle_insurance_hk:
-    - "vehicle_insurance_id"
-  hashdiff:
-    is_hashdiff: true
+  VEHICLE_INSURANCE_HK:
+    - "VEHICLE_INSURANCE_ID"
+  HASHDIFF:
+    IS_HASHDIFF: true
     columns:
-      - "vehicle_insurance_id"
-      - "Gender"
-      - "Age"
-      - "Driving_License"
-      - "Region_Code"
-      - "Previously_Insured"
-      - "Vehicle_Age"
-      - "Vehicle_Damage"
-      - "Annual_Premium"
-      - "Policy_Sales_Channel"
-      - "Vintage"
+      - "VEHICLE_INSURANCE_ID"
+      - "GENDER"
+      - "AGE"
+      - "DRIVING_LICENSE"
+      - "REGION_CODE"
+      - "PREVIOUSLY_INSURED"
+      - "VEHICLE_AGE"
+      - "VEHICLE_DAMAGE"
+      - "ANNUAL_PREMIUM"
+      - "POLICY_SALES_CHANNEL"
+      - "VINTAGE"
+      - "SOURCE"
 {%- endset -%}
 
 /* fromyml() built-in jinja function  assigns values to variables */

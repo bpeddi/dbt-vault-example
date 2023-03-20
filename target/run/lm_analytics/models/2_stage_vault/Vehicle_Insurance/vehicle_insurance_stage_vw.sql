@@ -1,5 +1,7 @@
 
-  create view "mydw"."mydw_stage_vault"."vehicle_insurance_stage_vw__dbt_tmp" as (
+  create or replace   view dbt_test.dbt_test.vehicle_insurance_stage_vw
+  
+   as (
     /* set yaml_metadata and endset are used for assigning variable ( key value pairs) *//* fromyml() built-in jinja function  assigns values to variables */
 
 
@@ -24,48 +26,49 @@ WITH source_data AS (
 
     SELECT
 
-    vehicle_insurance_id,
-    gender,
-    age,
-    driving_license,
-    region_code,
-    previously_insured,
-    vehicle_age,
-    vehicle_damage,
-    annual_premium,
-    policy_sales_channel,
-    vintage,
-    rec_create_date,
-    rec_update_date,
-    rec_create_by,
-    rec_update_by
+    "VEHICLE_INSURANCE_ID",
+    "GENDER",
+    "AGE",
+    "DRIVING_LICENSE",
+    "REGION_CODE",
+    "PREVIOUSLY_INSURED",
+    "VEHICLE_AGE",
+    "VEHICLE_DAMAGE",
+    "ANNUAL_PREMIUM",
+    "POLICY_SALES_CHANNEL",
+    "VINTAGE",
+    "SOURCE",
+    "REC_CREATE_DATE",
+    "REC_UPDATE_DATE",
+    "REC_CREATE_BY",
+    "REC_UPDATE_BY"
 
-    FROM "mydw"."mydw_stage_vault"."src_vehicle_insurance_vw"
+    FROM dbt_test.dbt_test.src_vehicle_insurance_vw
 ),
 
 derived_columns AS (
 
     SELECT
 
-    vehicle_insurance_id,
-    gender,
-    age,
-    driving_license,
-    region_code,
-    previously_insured,
-    vehicle_age,
-    vehicle_damage,
-    annual_premium,
-    policy_sales_channel,
-    vintage,
-    rec_create_date,
-    rec_update_date,
-    rec_create_by,
-    rec_update_by,
-    'eirssys' AS source,
-    current_timestamp AS etl_load_datetime,
-    current_date AS effective_from,
-    to_date('9999-12-31','YYYY-MM-DD') AS end_date
+    "VEHICLE_INSURANCE_ID",
+    "GENDER",
+    "AGE",
+    "DRIVING_LICENSE",
+    "REGION_CODE",
+    "PREVIOUSLY_INSURED",
+    "VEHICLE_AGE",
+    "VEHICLE_DAMAGE",
+    "ANNUAL_PREMIUM",
+    "POLICY_SALES_CHANNEL",
+    "VINTAGE",
+    "SOURCE",
+    "REC_CREATE_DATE",
+    "REC_UPDATE_DATE",
+    "REC_CREATE_BY",
+    "REC_UPDATE_BY",
+    current_timestamp AS "ETL_LOAD_DATETIME",
+    current_date AS "EFFECTIVE_FROM",
+    to_date('9999-12-31','YYYY-MM-DD') AS "END_DATE"
 
     FROM source_data
 ),
@@ -74,42 +77,43 @@ hashed_columns AS (
 
     SELECT
 
-    VEHICLE_INSURANCE_ID,
-    GENDER,
-    AGE,
-    DRIVING_LICENSE,
-    REGION_CODE,
-    PREVIOUSLY_INSURED,
-    VEHICLE_AGE,
-    VEHICLE_DAMAGE,
-    ANNUAL_PREMIUM,
-    POLICY_SALES_CHANNEL,
-    VINTAGE,
-    REC_CREATE_DATE,
-    REC_UPDATE_DATE,
-    REC_CREATE_BY,
-    REC_UPDATE_BY,
-    SOURCE,
-    ETL_LOAD_DATETIME,
-    EFFECTIVE_FROM,
-    END_DATE,
+    "VEHICLE_INSURANCE_ID",
+    "GENDER",
+    "AGE",
+    "DRIVING_LICENSE",
+    "REGION_CODE",
+    "PREVIOUSLY_INSURED",
+    "VEHICLE_AGE",
+    "VEHICLE_DAMAGE",
+    "ANNUAL_PREMIUM",
+    "POLICY_SALES_CHANNEL",
+    "VINTAGE",
+    "SOURCE",
+    "REC_CREATE_DATE",
+    "REC_UPDATE_DATE",
+    "REC_CREATE_BY",
+    "REC_UPDATE_BY",
+    "ETL_LOAD_DATETIME",
+    "EFFECTIVE_FROM",
+    "END_DATE",
 
-    CAST(UPPER(MD5(NULLIF(CONCAT_WS('||',
-        COALESCE(NULLIF(UPPER(TRIM(CAST(vehicle_insurance_id AS VARCHAR))), ''), '^^')
-    ), '^^'))) AS BYTEA) AS vehicle_insurance_hk,
-    CAST(UPPER(MD5(CONCAT_WS('||',
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Age AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Annual_Premium AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Driving_License AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Gender AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Policy_Sales_Channel AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Previously_Insured AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Region_Code AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Vehicle_Age AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Vehicle_Damage AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(vehicle_insurance_id AS VARCHAR))), ''), '^^'),
-        COALESCE(NULLIF(UPPER(TRIM(CAST(Vintage AS VARCHAR))), ''), '^^')
-    ))) AS BYTEA) AS hashdiff
+    CAST(MD5_BINARY(NULLIF(CONCAT_WS('||',
+        IFNULL(NULLIF(UPPER(TRIM(CAST("vehicle_insurance_id" AS VARCHAR))), ''), '^^')
+    ), '^^')) AS BINARY(16)) AS "vehicle_insurance_hk",
+    CAST(MD5_BINARY(CONCAT_WS('||',
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Age" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Annual_Premium" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Driving_License" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Gender" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Policy_Sales_Channel" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Previously_Insured" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Region_Code" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Source" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Vehicle_Age" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Vehicle_Damage" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("vehicle_insurance_id" AS VARCHAR))), ''), '^^'),
+        IFNULL(NULLIF(UPPER(TRIM(CAST("Vintage" AS VARCHAR))), ''), '^^')
+    )) AS BINARY(16)) AS "hashdiff"
 
     FROM derived_columns
 ),
@@ -118,30 +122,31 @@ columns_to_select AS (
 
     SELECT
 
-    VEHICLE_INSURANCE_ID,
-    GENDER,
-    AGE,
-    DRIVING_LICENSE,
-    REGION_CODE,
-    PREVIOUSLY_INSURED,
-    VEHICLE_AGE,
-    VEHICLE_DAMAGE,
-    ANNUAL_PREMIUM,
-    POLICY_SALES_CHANNEL,
-    VINTAGE,
-    REC_CREATE_DATE,
-    REC_UPDATE_DATE,
-    REC_CREATE_BY,
-    REC_UPDATE_BY,
-    SOURCE,
-    ETL_LOAD_DATETIME,
-    EFFECTIVE_FROM,
-    END_DATE,
-    VEHICLE_INSURANCE_HK,
-    HASHDIFF
+    "VEHICLE_INSURANCE_ID",
+    "GENDER",
+    "AGE",
+    "DRIVING_LICENSE",
+    "REGION_CODE",
+    "PREVIOUSLY_INSURED",
+    "VEHICLE_AGE",
+    "VEHICLE_DAMAGE",
+    "ANNUAL_PREMIUM",
+    "POLICY_SALES_CHANNEL",
+    "VINTAGE",
+    "SOURCE",
+    "REC_CREATE_DATE",
+    "REC_UPDATE_DATE",
+    "REC_CREATE_BY",
+    "REC_UPDATE_BY",
+    "ETL_LOAD_DATETIME",
+    "EFFECTIVE_FROM",
+    "END_DATE",
+    "VEHICLE_INSURANCE_HK",
+    "HASHDIFF"
 
     FROM hashed_columns
 )
 
 SELECT * FROM columns_to_select
   );
+

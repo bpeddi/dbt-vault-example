@@ -14,12 +14,12 @@ transform_vehicle_insurance as (
         Annual_Premium,
         Policy_Sales_Channel,
         Vintage,
-        NOW() - INTERVAL '+1 DAY' as rec_create_date,
-        NOW()::timestamp as rec_update_date,
+        'dummy' as source,
+        current_timestamp - INTERVAL '+1 DAY' as rec_create_date,
+        current_timestamp as rec_update_date,
         'DBT ETL' as rec_create_by,
         'DBT ETL' as rec_update_by
-
-        from  mydw.mydw_source.vehicle_insurance    
+        from  dbt_test.dbt_test.vehicle_insurance    
 
 ) ,
 
@@ -39,6 +39,7 @@ final as (
         Annual_Premium,
         Policy_Sales_Channel,
         Vintage,
+        Source,
         rec_create_date,
         rec_update_date,
         rec_create_by,
