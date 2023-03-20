@@ -19,7 +19,7 @@ transform_vehicle_insurance as (
         'DBT ETL' as rec_create_by,
         'DBT ETL' as rec_update_by
 
-        from  {{ source('mydw_source','vehicle_insurance') }}    
+        from  {{ source('dbt_test','vehicle_insurance') }}    
 
 ) ,
 
