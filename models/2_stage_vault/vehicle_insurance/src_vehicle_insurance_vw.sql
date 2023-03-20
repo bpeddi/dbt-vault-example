@@ -3,23 +3,23 @@ with
 -- this query loads all data during full load and reads only delta during incremental load 
 transform_vehicle_insurance as (
     select
-        vehicle_insurance_id,
-        gender,
-        age,
-        driving_license,
-        case when region_code is null then 0 else region_code end as region_code,
-        previously_insured,
-        vehicle_age,
-        vehicle_damage,
-        annual_premium,
-        policy_sales_channel,
-        vintage,
-        -- now() - interval '+1 day' as rec_create_date,
-        -- now()::timestamp as rec_update_date,
-        CURRENT_DATE() as rec_create_date,
-        CURRENT_DATE() as rec_update_date,
-        'dbt etl' as rec_create_by,
-        'dbt etl' as rec_update_by
+        VEHICLE_INSURANCE_ID,
+        GENDER,
+        AGE,
+        DRIVING_LICENSE,
+        CASE WHEN REGION_CODE IS NULL THEN 0 ELSE REGION_CODE END AS REGION_CODE,
+        PREVIOUSLY_INSURED,
+        VEHICLE_AGE,
+        VEHICLE_DAMAGE,
+        ANNUAL_PREMIUM,
+        POLICY_SALES_CHANNEL,
+        VINTAGE,
+        -- NOW() - INTERVAL '+1 DAY' AS REC_CREATE_DATE,
+        -- NOW()::TIMESTAMP AS REC_UPDATE_DATE,
+        CURRENT_DATE() AS REC_CREATE_DATE,
+        CURRENT_DATE() AS REC_UPDATE_DATE,
+        'DBT ETL' AS REC_CREATE_BY,
+        'DBT ETL' AS REC_UPDATE_BY
 
         from  {{ source('dbt_bpeddi_source','insurence_source') }}    
 
@@ -30,21 +30,21 @@ transform_vehicle_insurance as (
 final as (
 
     select 
-        vehicle_insurance_id,
-        gender,
-        age,
-        driving_license,
-        region_code,
-        previously_insured,
-        vehicle_age,
-        vehicle_damage,
-        annual_premium,
-        policy_sales_channel,
-        vintage,
-        rec_create_date,
-        rec_update_date,
-        rec_create_by,
-        rec_update_by
+        VEHICLE_INSURANCE_ID,
+        GENDER,
+        AGE,
+        DRIVING_LICENSE,
+        REGION_CODE,
+        PREVIOUSLY_INSURED,
+        VEHICLE_AGE,
+        VEHICLE_DAMAGE,
+        ANNUAL_PREMIUM,
+        POLICY_SALES_CHANNEL,
+        VINTAGE,
+        REC_CREATE_DATE,
+        REC_UPDATE_DATE,
+        REC_CREATE_BY,
+        REC_UPDATE_BY
     from transform_vehicle_insurance 
 
 )

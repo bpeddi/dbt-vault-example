@@ -3,22 +3,22 @@ with
 --- Select data from vehicle_insurance satellite 
 cte_vehicle_insurance_satellite as (
 select
-    vehicle_insurance_hk,
-    vehicle_insurance_id,
-    gender,
-    age,
-    driving_license,
-    region_code,
-    previously_insured,
-    vehicle_age,
-    vehicle_damage,
-    annual_premium,
-    policy_sales_channel,
-    vintage,
-    rec_create_date,
-    rec_update_date,
-    rec_create_by,
-    rec_update_by
+    VEHICLE_INSURANCE_HK,
+    VEHICLE_INSURANCE_ID,
+    GENDER,
+    AGE,
+    DRIVING_LICENSE,
+    REGION_CODE,
+    PREVIOUSLY_INSURED,
+    VEHICLE_AGE,
+    VEHICLE_DAMAGE,
+    ANNUAL_PREMIUM,
+    POLICY_SALES_CHANNEL,
+    VINTAGE,
+    REC_CREATE_DATE,
+    REC_UPDATE_DATE,
+    REC_CREATE_BY,
+    REC_UPDATE_BY
 from 
   {{ref('vehicle_insurance_sat')}}  stg
 
@@ -26,10 +26,10 @@ from
 
 left outer join (
 select 
-    distinct a.vehicle_insurance_id as tgt_vehicle_insurance_id 
+    distinct a.VEHICLE_INSURANCE_ID as TGT_VEHICLE_INSURANCE_ID 
 from {{ this }} a ) as tgt
-    on stg.vehicle_insurance_id=tgt.tgt_vehicle_insurance_id 
-where (tgt.tgt_vehicle_insurance_id is null )
+    on stg.VEHICLE_INSURANCE_ID=tgt.TGT_VEHICLE_INSURANCE_ID
+where (tgt.TGT_VEHICLE_INSURANCE_ID is null )
 
 {% endif %}
 
@@ -39,22 +39,22 @@ where (tgt.tgt_vehicle_insurance_id is null )
 
 final as (
 select 
-    row_number() over (order by vehicle_insurance_hk) as vehicle_insurance_dim_id ,
-    vehicle_insurance_id,
-    gender,
-    age,
-    driving_license,
-    region_code,
-    previously_insured,
-    vehicle_age,
-    vehicle_damage,
-    annual_premium,
-    policy_sales_channel,
-    vintage,
-    rec_create_date,
-    rec_update_date,
-    rec_create_by,
-    rec_update_by
+    row_number() over (order by VEHICLE_INSURANCE_HK) as vehicle_insurance_dim_id ,
+    VEHICLE_INSURANCE_ID,
+    GENDER,
+    AGE,
+    DRIVING_LICENSE,
+    REGION_CODE,
+    PREVIOUSLY_INSURED,
+    VEHICLE_AGE,
+    VEHICLE_DAMAGE,
+    ANNUAL_PREMIUM,
+    POLICY_SALES_CHANNEL,
+    VINTAGE,
+    REC_CREATE_DATE,
+    REC_UPDATE_DATE,
+    REC_CREATE_BY,
+    REC_UPDATE_BY
 from cte_vehicle_insurance_satellite
 )
 

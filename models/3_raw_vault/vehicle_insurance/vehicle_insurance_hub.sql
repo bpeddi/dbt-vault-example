@@ -4,12 +4,12 @@
 
 {%- set yaml_metadata -%}
 source_model: vehicle_insurance_stage_vw
-src_pk: vehicle_insurance_hk 
+src_pk: VEHICLE_INSURANCE_HK 
 src_nk: 
-    - vehicle_insurance_id
+    - VEHICLE_INSURANCE_ID
     
-src_ldts: etl_load_datetime
-src_source: source
+src_ldts: ETL_LOAD_DATETIME
+src_source: RECORD_SOURCE
 {%- endset -%}
 
 /* fromyml() built-in jinja function  assigns values to variables */
