@@ -42,7 +42,7 @@ models:
           contains_pii: false
         description: "{{ doc('etl_load_datetime') }}"
 
-      - name: source
+      - name: RECORD_SOURCE
         meta:
           contains_pii: false
         description: "{{ doc('source') }}"
